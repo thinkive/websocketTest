@@ -1,0 +1,19 @@
+{
+  "name": "h5-chat-app",
+  "version": "0.0.1",
+  "description": "基于nodejs,h5组在线聊天APP",
+  "dependencies": {
+    "@log4js-node/smtp": "^1.0.0",
+    "express": "^4.14.1",
+    "express-session": "^1.15.1",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "log4js": "^3.0.0",
+    "nodemailer": "^4.6.7",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "nodemailer-wellknown": "^0.2.3",
+    "nodeutil": "^0.1.0",
+    "uuid": "^3.0.1",
+    "ws": "^5.2.2"
+  }
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="format-detection" content="email=no"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" name="viewport">
+        <title>tcminplay</title>
+    </head>
+    <body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+            var initWs = () => {
+                // var socket = new WebSocket('ws://localhost:8080/');
+                var socket = new WebSocket('wss://www.wecloud.net.cn:8443');
+
+                socket.onmessage = function (e) {
+                    console.log('Server: ' + e.data);
+                };
+                socket.onerror = function (e) {
+                    console.log('Error: ' + e.data);
+                };
+                socket.onclose = function (e) {
+                    console.log('Close: ~~~~~~~~~~~~~~~~~~~~~~' + e.data)
+                }
+
+                var send = (message, callback) => {
+                    waitForConnection(function () {
+                        socket.send('your message');
+                        if (typeof callback !== 'undefined') {
+                            callback();
+                        }
+                    }, 1000);
+                };
+
+                var waitForConnection = (callback, interval) => {
+                    if (socket.readyState === 1) {
+                        callback();
+                    } else {
+                        var that = this;
+                        // optional: implement backoff for interval here
+                        setTimeout(function () {
+                            waitForConnection(callback, interval);
+                        }, interval);
+                    }
+                }
+                send()
+            }
+
+            initWs()
+
+            // var instance = axios.create({
+            //     baseURL: 'http://localhost:8080',
+            //     withCredentials: true,
+            //     timeout: 2000,
+            // });
+            //
+            // instance.post( '/login')
+            //     .then((response) => {
+            //         console.log(response);
+            //         setTimeout(() => {
+            //             initWs()
+            //         }, 2000)
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //         setTimeout(() => {
+            //             initWs()
+            //         }, 2000)
+            //     });
+        </script>
+    </body>
+</html>
